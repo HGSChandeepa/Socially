@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "963388241050",
+    "project_id": "study-planner-c97ad",
+    "storage_bucket": "study-planner-c97ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963388241050:android:8bbb3f6e7d3ba297b89b23",
+        "android_client_info": {
+          "package_name": "com.example.socially"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963388241050-4pqqerngvn5iv1d8ea2tii6mtb91m98m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU6eViyizwaPct4DZ1YSoB5dFOPoWdODM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963388241050-4pqqerngvn5iv1d8ea2tii6mtb91m98m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

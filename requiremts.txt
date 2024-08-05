@@ -1,0 +1,39 @@
+User Authentication
+
+-Sign Up/Log In: Allow users to create an account and log in using email/password or social media providers (Google, Facebook).
+-Password Recovery: Enable users to reset their password via email.
+
+User Profile
+
+-Profile Picture: Allow users to upload a profile picture.
+-Basic Information: Allow users to add their name, email, and phone number to their profile.
+
+Feed
+
+-Create Post: Allow users to write and publish posts.
+-Edit Post: Allow users to edit their published posts.
+-Delete Post: Allow users to delete their published posts.
+-View Post: Allow users to view posts from other users.
+
+Following and Followed By
+
+-Follow User: Allow users to follow other users.
+-Unfollow User: Allow users to unfollow other users.
+-View Followers: Allow users to view a list of users who are following them.
+
+Messaging
+
+-Send Message: Allow users to send direct messages to other users.
+-View Message: Allow users to view messages from other users.
+
+
+Stories
+
+-Create Story: Allow users to create and publish stories.
+-View Story: Allow users to view stories from other users.
+-Delete Story: Allow users to delete their published stories.
+-Reactions: Allow users to react to stories with emojis.
+
+
+
+
