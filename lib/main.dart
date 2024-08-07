@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:socially/firebase_options.dart';
 import 'package:socially/router/router.dart';
+import 'package:socially/utils/app_constants/colors.dart';
 import 'package:socially/views/responsive/mobile_screen_layout.dart';
 import 'package:socially/views/responsive/responsive_layout.dart';
 import 'package:socially/views/responsive/web_screen_layout.dart';
@@ -21,8 +22,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Socially',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: ThemeData.dark().copyWith(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.transparent,
+          selectedItemColor: mainYellowColor,
+          unselectedItemColor: mainWhiteColor,
+        ),
       ),
       routerConfig: RouterClass().router,
     );

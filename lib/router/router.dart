@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:socially/views/auth_views/login_screen.dart';
 import 'package:socially/views/auth_views/register_screen.dart';
-import 'package:socially/views/main_views/main_screen.dart';
+import 'package:socially/views/main_screen.dart';
 import 'package:socially/views/wrapper.dart';
 
 class RouterClass {

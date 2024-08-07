@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:socially/services/auth/auth_service.dart';
-import 'package:socially/views/main_views/main_screen.dart';
+import 'package:socially/views/main_screen.dart';
 import 'package:socially/widgets/reusable/custom_button.dart';
 import 'package:socially/widgets/reusable/custom_input.dart';
 
