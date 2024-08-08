@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socially/utils/app_constants/colors.dart';
 
 class ReusableInput extends StatelessWidget {
   final TextEditingController controller;
@@ -17,17 +18,29 @@ class ReusableInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final inputBorder = OutlineInputBorder(
+      borderSide: Divider.createBorderSide(context),
+      borderRadius: BorderRadius.circular(8),
+    );
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
+        border: inputBorder,
+        focusedBorder: inputBorder,
+        enabledBorder: inputBorder,
         labelText: labelText,
-        border: const OutlineInputBorder(),
-        prefixIcon: Icon(icon),
+        labelStyle: const TextStyle(
+          color: mainWhiteColor,
+        ),
+        filled: true,
+        prefixIcon: Icon(
+          icon,
+          color: mainWhiteColor,
+          size: 20,
+        ),
       ),
       obscureText: obscureText,
       validator: validator,
     );
   }
 }
-
-

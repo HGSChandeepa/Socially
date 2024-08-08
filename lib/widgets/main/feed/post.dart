@@ -43,7 +43,7 @@ class PostWidget extends StatelessWidget {
                   post.postUrl,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  height: 200,
+                  height: MediaQuery.of(context).size.height * 0.5,
                 ),
               ),
             const SizedBox(height: 8),

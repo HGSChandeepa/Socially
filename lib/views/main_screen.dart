@@ -16,9 +16,9 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    CreateScreen(),
     FeedScreen(),
     SearchScreen(),
+    CreateScreen(),
     ReelsScreen(),
     ProfileScreen(),
   ];

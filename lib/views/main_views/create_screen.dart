@@ -33,12 +33,10 @@ class _CreateScreenState extends State<CreateScreen> {
       // Form is valid, handle the submission
       try {
         final postCaption = _captionController.text;
-        final moodEmoji = _selectedMood.emoji;
 
         // Get the current user
         final user = FirebaseAuth.instance.currentUser;
         final userId = user?.uid;
-        // TODO: get theese data from the users collection
         final username = user?.displayName;
         final profImage = user?.photoURL;
 
@@ -46,7 +44,7 @@ class _CreateScreenState extends State<CreateScreen> {
         // CreateScreen.dart
         final postDetails = {
           'postCaption': postCaption,
-          'mood': _selectedMood.name, // Save the mood as the enum name
+          'mood': _selectedMood.name,
           'userId': userId,
           'username': username,
           'profImage': profImage,
