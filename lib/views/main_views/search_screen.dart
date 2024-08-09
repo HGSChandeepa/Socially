@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:socially/models/user_model.dart';
 import 'package:socially/services/users/user_service.dart';
+import 'package:socially/utils/app_constants/colors.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -11,7 +12,6 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   List<User> _users = [];
   List<User> _filteredUsers = [];
-  String _searchQuery = '';
 
   @override
   void initState() {
@@ -33,7 +33,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _filterUsers(String query) {
     setState(() {
-      _searchQuery = query;
       _filteredUsers = _users
           .where(
               (user) => user.name.toLowerCase().contains(query.toLowerCase()))
@@ -47,6 +46,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final inputBorder = OutlineInputBorder(
+      borderSide: Divider.createBorderSide(context),
+      borderRadius: BorderRadius.circular(8),
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Search Users'),
@@ -56,9 +59,17 @@ class _SearchScreenState extends State<SearchScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Search',
-                border: OutlineInputBorder(),
+                filled: true,
+                border: inputBorder,
+                focusedBorder: inputBorder,
+                enabledBorder: inputBorder,
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: mainWhiteColor,
+                  size: 20,
+                ),
               ),
               onChanged: _filterUsers,
             ),

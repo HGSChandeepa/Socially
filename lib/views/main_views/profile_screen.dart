@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:socially/models/user_model.dart';
 import 'package:socially/services/auth/auth_service.dart';
 import 'package:socially/services/users/user_service.dart';
+import 'package:socially/widgets/reusable/custom_button.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -119,20 +120,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
               if (user.userId != _currentUserId)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle follow/unfollow logic
-                    },
-                    child: const Text('Follow'),
+                  child: ReusableButton(
+                    // TODO: Implement follow/unfollow functionality
+                    onPressed: () {},
+                    width: MediaQuery.of(context).size.width,
+                    text: 'Follow',
                   ),
                 ),
               const SizedBox(height: 16),
               // Logout Button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: ElevatedButton(
+                child: ReusableButton(
                   onPressed: () => _signOut(context),
-                  child: const Text('Log Out'),
+                  width: MediaQuery.of(context).size.width,
+                  text: 'Logout',
                 ),
               ),
             ],

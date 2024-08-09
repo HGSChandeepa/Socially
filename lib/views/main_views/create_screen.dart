@@ -2,10 +2,11 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:socially/models/user_model.dart';
 import 'package:socially/services/feed/feed_service.dart';
 import 'package:socially/services/users/user_service.dart';
 import 'package:socially/utils/util_functions/mood.dart';
+import 'package:socially/widgets/reusable/custom_button.dart';
+import 'package:socially/widgets/reusable/custom_input.dart';
 
 class CreateScreen extends StatefulWidget {
   @override
@@ -92,11 +93,11 @@ class _CreateScreenState extends State<CreateScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFormField(
+                ReusableInput(
                   controller: _captionController,
-                  decoration: const InputDecoration(
-                    labelText: 'Caption',
-                  ),
+                  labelText: 'Caption',
+                  icon: Icons.text_fields,
+                  obscureText: false,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a caption';
@@ -133,22 +134,26 @@ class _CreateScreenState extends State<CreateScreen> {
                     : const Text('No image selected'),
                 const SizedBox(height: 16),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(
+                    ReusableButton(
+                      text: 'Use Camera',
                       onPressed: () => _pickImage(ImageSource.camera),
-                      child: const Text('Pick from Camera'),
+                      width: MediaQuery.of(context).size.width * 0.43,
                     ),
                     const SizedBox(width: 16),
-                    ElevatedButton(
+                    ReusableButton(
+                      text: 'Use Gallery',
                       onPressed: () => _pickImage(ImageSource.gallery),
-                      child: const Text('Pick from Gallery'),
+                      width: MediaQuery.of(context).size.width * 0.43,
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                ElevatedButton(
+                ReusableButton(
+                  text: 'Submit Post',
                   onPressed: _submitPost,
-                  child: const Text('Submit Post'),
+                  width: MediaQuery.of(context).size.width,
                 ),
               ],
             ),

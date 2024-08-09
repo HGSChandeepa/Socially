@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:socially/models/post_model.dart';
+import 'package:socially/services/feed/feed_service.dart';
 import 'package:socially/utils/app_constants/colors.dart';
 import 'package:socially/utils/util_functions/mood.dart';
 
@@ -22,6 +23,55 @@ class PostWidget extends StatefulWidget {
 }
 
 class _PostWidgetState extends State<PostWidget> {
+  bool _isLiked = false; // Track if the post is liked
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfLiked();
+  }
+
+  // Check if the user has liked the post
+  Future<void> _checkIfLiked() async {
+    final hasLiked = await FeedService().hasUserLikedPost(
+      postId: widget.post.postId,
+      userId: widget.currentUserId,
+    );
+    setState(() {
+      _isLiked = hasLiked;
+    });
+  }
+
+  // Method to like and dislike a post
+  void _likePost() async {
+    try {
+      if (_isLiked) {
+        await FeedService().unlikePost(
+          postId: widget.post.postId,
+          userId: widget.currentUserId,
+        );
+        setState(() {
+          _isLiked = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Post unliked'),
+          ),
+        );
+      } else {
+        await FeedService().likePost(
+          postId: widget.post.postId,
+          userId: widget.currentUserId,
+        );
+        setState(() {
+          _isLiked = true;
+        });
+      }
+    } catch (e) {
+      print('Error liking/unliking post: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -117,14 +167,14 @@ class _PostWidgetState extends State<PostWidget> {
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(
-                        Icons.favorite_border,
-                        color: mainWhiteColor,
+                      icon: Icon(
+                        _isLiked ? Icons.favorite : Icons.favorite_border,
+                        color: _isLiked ? Colors.red : mainWhiteColor,
                       ),
-                      onPressed: () {},
+                      onPressed: _likePost,
                     ),
                     Text(
-                      "${widget.post.likes.bitLength} likes",
+                      "${widget.post.likes} likes",
                       style: const TextStyle(color: mainWhiteColor),
                     ),
                   ],
