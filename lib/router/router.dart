@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:socially/models/user_model.dart';
 import 'package:socially/views/auth_views/login_screen.dart';
 import 'package:socially/views/auth_views/register_screen.dart';
 import 'package:socially/views/main_screen.dart';
+import 'package:socially/views/main_views/single_user.dart';
 import 'package:socially/views/wrapper.dart';
 
 class RouterClass {
@@ -51,6 +53,18 @@ class RouterClass {
         path: "/main-screen",
         builder: (context, state) {
           return MainScreen();
+        },
+      ),
+
+      //profile screen
+      GoRoute(
+        name: "profile-screen",
+        path: "/profile-screen",
+        builder: (context, state) {
+          final User user = state.extra as User;
+          return SingleUserScreen(
+            user: user,
+          );
         },
       ),
     ],

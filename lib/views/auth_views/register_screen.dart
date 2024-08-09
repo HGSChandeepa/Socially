@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socially/models/user_model.dart';
-import 'package:socially/services/auth/auth_service.dart';
 import 'package:socially/services/users/user_service.dart';
 import 'package:socially/services/users/user_storage.dart';
 import 'package:socially/utils/app_constants/colors.dart';
@@ -111,13 +110,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ? CircleAvatar(
                                   radius: 64,
                                   backgroundImage: FileImage(_imageFile!),
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: mainPurpleColor,
                                 )
                               : const CircleAvatar(
                                   radius: 64,
                                   backgroundImage: NetworkImage(
                                       'https://i.stack.imgur.com/l60Hf.png'),
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: mainPurpleColor,
                                 ),
                           Positioned(
                             bottom: -10,

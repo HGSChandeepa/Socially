@@ -60,18 +60,22 @@ class AuthService {
 
   //create user with email and password
 
-  Future<void> createUserWithEmailAndPassword(
-      {required String email, required String password}) async {
+  Future<UserCredential> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      final userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      return userCredential;
     } on FirebaseAuthException catch (e) {
       print('Error creating user: ${mapFirebaseAuthExceptionCode(e.code)}');
       throw Exception(mapFirebaseAuthExceptionCode(e.code));
     } catch (e) {
       print('Error creating user: $e');
+      throw Exception(e.toString());
     }
   }
 

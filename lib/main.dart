@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:socially/firebase_options.dart';
 import 'package:socially/router/router.dart';
 import 'package:socially/utils/app_constants/colors.dart';
@@ -19,7 +20,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Socially',
-      theme: ThemeData.dark().copyWith(
+      theme: ThemeData(
+        fontFamily: GoogleFonts.poppins().fontFamily,
+        brightness: Brightness.dark,
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.transparent,
           selectedItemColor: mainYellowColor,

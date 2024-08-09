@@ -10,19 +10,58 @@ class UserService {
   // Save the user in the Firestore database
   Future<void> saveUser(User user) async {
     try {
-      //create a new user with email and password
-      await AuthService().createUserWithEmailAndPassword(
+      // Create a new user with email and password
+      final userCredential = await AuthService().createUserWithEmailAndPassword(
         email: user.email,
         password: user.password,
       );
 
-      // Add the user to the collection
-      final docRef = await _usersCollection.add(user.toMap());
-      await docRef.update({'userId': docRef.id});
+      // Retrieve the user ID from the created user
+      final userId = userCredential.user?.uid;
 
-      print('User saved successfully');
+      if (userId != null) {
+        // Create a new user document in Firestore with the user ID as the document ID
+        final userRef = _usersCollection.doc(userId);
+
+        // Create a user map with the userId field
+        final userMap = user.toMap();
+        userMap['userId'] = userId;
+
+        // Set the user data in Firestore
+        await userRef.set(userMap);
+
+        print('User saved successfully with ID: $userId');
+      } else {
+        print('Error: User ID is null');
+      }
     } catch (error) {
       print('Error saving user: $error');
+    }
+  }
+
+  //get user details by id
+  Future<User?> getUserById(String userId) async {
+    try {
+      final doc = await _usersCollection.doc(userId).get();
+      if (doc.exists) {
+        return User.fromMap(doc.data() as Map<String, dynamic>);
+      }
+    } catch (error) {
+      print('Error getting user: $error');
+    }
+    return null;
+  }
+
+  //get all users
+  Future<List<User>> getAllUsers() async {
+    try {
+      final snapshot = await _usersCollection.get();
+      return snapshot.docs
+          .map((doc) => User.fromMap(doc.data() as Map<String, dynamic>))
+          .toList();
+    } catch (error) {
+      print('Error getting users: $error');
+      return [];
     }
   }
 }

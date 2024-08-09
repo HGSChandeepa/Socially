@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:socially/models/user_model.dart';
 import 'package:socially/services/feed/feed_service.dart';
+import 'package:socially/services/users/user_service.dart';
 import 'package:socially/utils/util_functions/mood.dart';
 
 class CreateScreen extends StatefulWidget {
@@ -28,7 +30,7 @@ class _CreateScreenState extends State<CreateScreen> {
   }
 
   // Handle form submission
-  void _submitPost() {
+  void _submitPost() async {
     if (_formKey.currentState?.validate() ?? false) {
       // Form is valid, handle the submission
       try {
@@ -36,27 +38,38 @@ class _CreateScreenState extends State<CreateScreen> {
 
         // Get the current user
         final user = FirebaseAuth.instance.currentUser;
-        final userId = user?.uid;
-        final username = user?.displayName;
-        final profImage = user?.photoURL;
 
-        // Create a new post object
-        // CreateScreen.dart
-        final postDetails = {
-          'postCaption': postCaption,
-          'mood': _selectedMood.name,
-          'userId': userId,
-          'username': username,
-          'profImage': profImage,
-          'postImage': _imageFile,
-        };
+        if (user != null) {
+          // Fetch user details from Firestore
+          final userDetails = await UserService().getUserById(user.uid);
 
-        // Save the post
-        FeedService().savePost(postDetails);
+          if (userDetails != null) {
+            // Create a new post object with user details
+            final postDetails = {
+              'postCaption': postCaption,
+              'mood': _selectedMood.name,
+              'userId': user.uid,
+              'username': userDetails.name,
+              'profImage': userDetails.imageUrl,
+              'postImage': _imageFile,
+            };
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Post created successfully!')),
-        );
+            // Save the post
+            await FeedService().savePost(postDetails);
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Post created successfully!')),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Failed to fetch user details')),
+            );
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('No user is currently logged in')),
+          );
+        }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Failed to create post')),

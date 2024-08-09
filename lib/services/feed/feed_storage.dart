@@ -24,4 +24,13 @@ class FeedStorageService {
       return "";
     }
   }
+
+  //Delete image from storage
+  Future<void> deleteImage({required String imageUrl}) async {
+    try {
+      await _storage.refFromURL(imageUrl).delete();
+    } catch (e) {
+      print(e);
+    }
+  }
 }
