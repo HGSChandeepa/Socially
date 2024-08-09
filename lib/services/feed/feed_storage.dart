@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_storage/firebase_storage.dart';
 
 class FeedStorageService {

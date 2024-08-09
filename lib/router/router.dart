@@ -26,7 +26,7 @@ class RouterClass {
         path: "/",
         name: "wrapper",
         builder: (context, state) {
-          return Wrapper();
+          return const Wrapper();
         },
       ),
       // login Page
@@ -52,7 +52,7 @@ class RouterClass {
         name: "main-screen",
         path: "/main-screen",
         builder: (context, state) {
-          return MainScreen();
+          return const MainScreen();
         },
       ),
 
