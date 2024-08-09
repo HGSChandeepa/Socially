@@ -61,7 +61,7 @@ class RouterClass {
         name: "profile-screen",
         path: "/profile-screen",
         builder: (context, state) {
-          final User user = state.extra as User;
+          final UserModel user = state.extra as UserModel;
           return SingleUserScreen(
             user: user,
           );

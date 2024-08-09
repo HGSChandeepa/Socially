@@ -10,8 +10,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<User> _users = [];
-  List<User> _filteredUsers = [];
+  List<UserModel> _users = [];
+  List<UserModel> _filteredUsers = [];
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
-  void _navigateToUserProfile(User user) {
+  void _navigateToUserProfile(UserModel user) {
     GoRouter.of(context).push('/profile-screen', extra: user);
   }
 

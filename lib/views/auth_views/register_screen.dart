@@ -53,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       //save user to firestore
       UserService().saveUser(
-        User(
+        UserModel(
           userId: "",
           name: _nameController.text,
           email: _emailController.text,
@@ -62,6 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
           password: _passwordController.text,
+          followers: 0,
         ),
       );
 

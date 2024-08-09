@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class UserModel {
   final String userId;
   final String name;
   final String email;
@@ -9,8 +9,9 @@ class User {
   final DateTime createdAt;
   final DateTime updatedAt;
   final String password;
+  final int followers;
 
-  User({
+  UserModel({
     required this.userId,
     required this.name,
     required this.email,
@@ -19,6 +20,7 @@ class User {
     required this.createdAt,
     required this.updatedAt,
     required this.password,
+    required this.followers,
   });
 
   // Convert a User instance to a map (for saving to Firestore)
@@ -32,12 +34,13 @@ class User {
       'createdAt': createdAt,
       'updatedAt': updatedAt,
       'password': password,
+      'followers': followers,
     };
   }
 
   // Create a User instance from a map (for retrieving from Firestore)
-  factory User.fromMap(Map<String, dynamic> map) {
-    return User(
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
       userId: map['userId'] ?? '',
       name: map['name'] ?? '',
       email: map['email'] ?? '',
@@ -46,6 +49,7 @@ class User {
       createdAt: (map['createdAt'] as Timestamp).toDate(),
       updatedAt: (map['updatedAt'] as Timestamp).toDate(),
       password: map['password'] ?? '',
+      followers: map['followers'] ?? 0,
     );
   }
 }

@@ -132,6 +132,7 @@ class AuthService {
           'createdAt': Timestamp.fromDate(DateTime.now()),
           'updatedAt': Timestamp.fromDate(DateTime.now()),
           'password': '', // Password is not needed for Google sign-in
+          'followers': 0,
         };
 
         // Save user to Firestore

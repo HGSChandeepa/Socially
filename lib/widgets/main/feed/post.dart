@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // Import intl package
 import 'package:socially/models/post_model.dart';
 import 'package:socially/services/feed/feed_service.dart';
 import 'package:socially/utils/app_constants/colors.dart';
@@ -66,14 +67,28 @@ class _PostWidgetState extends State<PostWidget> {
         setState(() {
           _isLiked = true;
         });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Post liked'),
+          ),
+        );
       }
     } catch (e) {
       print('Error liking/unliking post: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to like/unlike post'),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Format the date
+    String formattedDate =
+        DateFormat('dd/MM/yyyy HH:mm').format(widget.post.datePublished);
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
       decoration: BoxDecoration(
@@ -103,13 +118,26 @@ class _PostWidgetState extends State<PostWidget> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Text(
-                  widget.post.username,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 25,
-                    color: mainWhiteColor,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.post.username,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 25,
+                        color: mainWhiteColor,
+                      ),
+                    ),
+                    // Display the formatted date
+                    Text(
+                      formattedDate,
+                      style: TextStyle(
+                        color: mainWhiteColor.withOpacity(0.4),
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
