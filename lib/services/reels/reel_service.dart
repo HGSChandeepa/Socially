@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:socially/models/reel_model.dart';
+import 'package:socially/services/reels/reel_storage.dart';
 
 class ReelService {
   final CollectionReference _reelsCollection =
@@ -26,6 +27,17 @@ class ReelService {
 
       final docRef = await _reelsCollection.add(reel.toJson());
       await docRef.update({'reelId': docRef.id});
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  // Delete a reel from Firestore
+  Future<void> deleteReel(Reel reel) async {
+    try {
+      await _reelsCollection.doc(reel.reelId).delete();
+      // Delete the reel from Firebase Storage
+      await ReelStorageService().deleteVideo(videoUrl: reel.videoUrl);
     } catch (e) {
       print(e);
     }

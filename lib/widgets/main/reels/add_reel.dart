@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socially/services/reels/reel_service.dart';
@@ -13,6 +14,7 @@ class AddReelModal extends StatefulWidget {
 class _AddReelModalState extends State<AddReelModal> {
   final _captionController = TextEditingController();
   File? _videoFile;
+  bool _isUploading = false;
 
   // Pick a video from the gallery
   Future<void> _pickVideo() async {
@@ -29,6 +31,15 @@ class _AddReelModalState extends State<AddReelModal> {
   void _submitReel() async {
     if (_videoFile != null && _captionController.text.isNotEmpty) {
       try {
+        //loading
+        setState(() {
+          _isUploading = true;
+        });
+
+        if (kIsWeb) {
+          return;
+        }
+        // Upload video to Firebase Storage
         final videoUrl = await ReelStorageService().uploadVideo(
           videoFile: _videoFile!,
         );
@@ -47,6 +58,10 @@ class _AddReelModalState extends State<AddReelModal> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Failed to add reel')),
         );
+      } finally {
+        setState(() {
+          _isUploading = false;
+        });
       }
     }
   }
@@ -88,7 +103,11 @@ class _AddReelModalState extends State<AddReelModal> {
               const SizedBox(height: 16),
               ReusableButton(
                 onPressed: _submitReel,
-                text: 'Add Reel',
+                text: kIsWeb
+                    ? 'Web not supportedd'
+                    : _isUploading
+                        ? 'Uploading...'
+                        : 'Upload Reel',
                 width: MediaQuery.of(context).size.width,
               ),
             ],

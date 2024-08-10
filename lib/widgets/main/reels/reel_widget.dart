@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:socially/models/reel_model.dart';
+import 'package:socially/services/reels/reel_service.dart';
 import 'video_player_widget.dart';
 
 class ReelWidget extends StatelessWidget {
   final Reel reel;
 
   const ReelWidget({required this.reel, Key? key}) : super(key: key);
+
+  //delete reel
+  void _deleteReel() async {
+    await ReelService().deleteReel(reel);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +52,7 @@ class ReelWidget extends StatelessWidget {
                 ),
                 IconButton(
                   icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    // Handle delete functionality
-                  },
+                  onPressed: _deleteReel,
                 ),
               ],
             ),

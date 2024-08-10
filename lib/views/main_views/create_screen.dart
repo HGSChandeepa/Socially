@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socially/services/feed/feed_service.dart';
 import 'package:socially/services/users/user_service.dart';
@@ -17,7 +19,8 @@ class _CreateScreenState extends State<CreateScreen> {
   final _formKey = GlobalKey<FormState>();
   final _captionController = TextEditingController();
   File? _imageFile;
-  Mood _selectedMood = Mood.happy; // Default mood
+  Mood _selectedMood = Mood.happy;
+  bool _isUploading = false;
 
   // Pick an image from the gallery or camera
   Future<void> _pickImage(ImageSource source) async {
@@ -35,6 +38,12 @@ class _CreateScreenState extends State<CreateScreen> {
     if (_formKey.currentState?.validate() ?? false) {
       // Form is valid, handle the submission
       try {
+        setState(() {
+          _isUploading = true;
+        });
+        if (kIsWeb) {
+          return;
+        }
         final postCaption = _captionController.text;
 
         // Get the current user
@@ -61,6 +70,12 @@ class _CreateScreenState extends State<CreateScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Post created successfully!')),
             );
+
+            // Clear the form
+            _captionController.clear();
+
+            //navigate to home screen
+            GoRouter.of(context).go('/main-screen');
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Failed to fetch user details')),
@@ -75,6 +90,10 @@ class _CreateScreenState extends State<CreateScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Failed to create post')),
         );
+      } finally {
+        setState(() {
+          _isUploading = false;
+        });
       }
     }
   }
@@ -124,12 +143,15 @@ class _CreateScreenState extends State<CreateScreen> {
                 _imageFile != null
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.file(
-                          _imageFile!,
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          fit: BoxFit.cover,
-                        ),
+                        child: kIsWeb
+                            ? Image.network(_imageFile!.path)
+                            : Image.file(
+                                _imageFile!,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                fit: BoxFit.cover,
+                              ),
                       )
                     : const Text('No image selected'),
                 const SizedBox(height: 16),
@@ -151,7 +173,11 @@ class _CreateScreenState extends State<CreateScreen> {
                 ),
                 const SizedBox(height: 16),
                 ReusableButton(
-                  text: 'Submit Post',
+                  text: kIsWeb
+                      ? 'Not supported yet!'
+                      : _isUploading
+                          ? 'Uploading...'
+                          : 'Create Post',
                   onPressed: _submitPost,
                   width: MediaQuery.of(context).size.width,
                 ),

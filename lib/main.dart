@@ -21,14 +21,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Socially',
       theme: ThemeData(
-        fontFamily: GoogleFonts.poppins().fontFamily,
-        brightness: Brightness.dark,
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Colors.transparent,
-          selectedItemColor: mainOrangeColor,
-          unselectedItemColor: mainWhiteColor,
-        ),
-      ),
+          fontFamily: GoogleFonts.poppins().fontFamily,
+          brightness: Brightness.dark,
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            backgroundColor: Colors.transparent,
+            selectedItemColor: mainOrangeColor,
+            unselectedItemColor: mainWhiteColor,
+          ),
+          snackBarTheme: const SnackBarThemeData(
+            backgroundColor: mainOrangeColor,
+            contentTextStyle: TextStyle(
+              color: mainWhiteColor,
+              fontSize: 16,
+            ),
+          )),
       routerConfig: RouterClass().router,
     );
   }
