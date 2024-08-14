@@ -1,16 +1,38 @@
-# socially
+# socially - DP Education - APP 13
 
-A new Flutter project.
+## Description
 
-## Getting Started
+This is a social media app that allows users to create an account, post, comment, and like posts. Users can also follow other users and see their posts on their feed. This app is built using Fluttter and Firebase.
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- User authentication
+- Create, update, delete posts
+- Like, comment on posts
+- Follow other users
+- View posts from users you follow
+- View all posts
+- View user profiles
+- View user posts
+- View user followers and following
+- Search for users
+- Search for posts
+- View notifications
+- View user feed
+- View user activity
+- View user suggestions
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technologies Used
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter
+- Firebase
+- Provider
+- GoRouter
+- Dio
+- VideoPlayer
+- ImagePicker
+- CachedNetworkImage
+
+## Contributors
+
+All contributors are welcome. You can contribute by forking this repository, making changes, and submitting a pull request. Feel free to create an issue if you have any questions or suggestions.

@@ -19,8 +19,8 @@ class ReelService {
       final reel = Reel(
         caption: reelDetails['caption'],
         videoUrl: reelDetails['videoUrl'],
-        userId: 'user-id-placeholder', // Replace with actual user ID
-        username: 'username-placeholder', // Replace with actual username
+        userId: 'user-id-placeholder', 
+        username: 'username-placeholder', 
         reelId: '',
         datePublished: DateTime.now(),
       );

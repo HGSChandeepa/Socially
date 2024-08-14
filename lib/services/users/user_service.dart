@@ -73,6 +73,13 @@ class UserService {
   //follow user here i need to create a separate collection called followers and store the data
 
   //methode to follow user and update the user followers count
+
+  //LOGIC EXPLANATION
+
+  // 1. Add the current user to the followers collection of the user to follow
+  // 2. Update the followers count for the user to follow
+  // 3. Update the following count for the current user
+
   Future<void> followUser(String currentUserId, String userToFollowId) async {
     try {
       // Add the user to the followers collection
@@ -115,6 +122,13 @@ class UserService {
   }
 
   //methode to unfollow user and update the user followers count
+
+  //LOGIC EXPLANATION
+
+  // 1. Remove the current user from the followers collection of the user to unfollow
+  // 2. Update the followers count for the user to unfollow
+  // 3. Update the following count for the current user
+  
   Future<void> unfollowUser(
       String currentUserId, String userToUnfollowId) async {
     try {

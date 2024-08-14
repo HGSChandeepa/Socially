@@ -7,6 +7,7 @@ class FeedStorageService {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<String> uploadImage({required postImage, required userId}) async {
+    //Create a reference to the image, here the image will be stored in the feed-images folder in the storage
     Reference ref =
         _storage.ref().child("feed-images").child("$userId/${DateTime.now()}");
 

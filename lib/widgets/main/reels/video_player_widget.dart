@@ -21,6 +21,9 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     _initializeVideo();
   }
 
+  // Initialize the video player
+  //EXPLANATION: This method initializes the video player with the video URL provided in the widget. It sets up the video player controller, listens for changes in the video player state, and initializes the video player. Once the video player is initialized, the `_isInitialized` flag is set to true. The video is set to loop and play automatically. If there is an error initializing the video, it is caught and printed to the console.
+
   Future<void> _initializeVideo() async {
     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
       ..addListener(() {
@@ -53,6 +56,12 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
@@ -76,11 +85,5 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
         ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
   }
 }

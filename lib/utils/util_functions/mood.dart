@@ -6,7 +6,9 @@ enum Mood {
   bored,
 }
 
+// This extension will add two methods to the Mood enum to get the name and emoji of the mood and a method to convert a string to a Mood enum value
 extension MoodExtension on Mood {
+  // Get the name of the mood
   String get name {
     switch (this) {
       case Mood.happy:
@@ -24,6 +26,7 @@ extension MoodExtension on Mood {
     }
   }
 
+  // Get the emoji of the mood
   String get emoji {
     switch (this) {
       case Mood.happy:
@@ -40,6 +43,8 @@ extension MoodExtension on Mood {
         return '';
     }
   }
+
+  // Convert a string to a Mood enum value , here we will use the firstWhere method to get the first value that match the string
 
   static Mood fromString(String moodString) {
     return Mood.values.firstWhere(

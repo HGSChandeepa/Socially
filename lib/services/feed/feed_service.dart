@@ -48,6 +48,8 @@ class FeedService {
   }
 
   // Fetch the posts as a stream
+
+  //This methode will return a stream of list of posts , a stream is a sequence of asynchronous events ordered in time and the stream will return a list of posts.
   Stream<List<Post>> getPostsStream() {
     return _feedCollection.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
@@ -90,6 +92,8 @@ class FeedService {
   // for each post i want a new collection called postLikes and i want to store the number of likes in that collection
 
   //create a methode to like a post
+
+  //[ Here the like post methode will take two parameters the post id and the user id and it will add a document to the likes subcollection and update the likes count in the post document.]
   Future<void> likePost(
       {required String postId, required String userId}) async {
     try {
